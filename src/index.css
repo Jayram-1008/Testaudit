@@ -1,0 +1,75 @@
+@import "tailwindcss";
+*{
+  padding:'0px';
+  margin:'0px';
+  font-family: "Moderustic", sans-serif;
+  font-optical-sizing: auto;
+  
+}
+body{
+  background-color: #001529;
+  scroll-behavior: smooth;
+}
+
+
+.group:hover .icon {
+  animation: tilt 0.6s ease-in-out 1;
+}
+
+@keyframes tilt {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.slider{ 
+  height: 100px;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+  margin-top: 40px;
+  width: 100%;
+  box-shadow: rgba(180, 57, 57, 0.35) 0px 5px 15px;
+
+}
+
+.slider .slide-track {
+  animation:  scroll 10s linear infinite;
+  display: flex;
+  gap: 40px;
+  width: calc(250px * 14);
+  overflow: hidden;
+}
+
+.slider .slide-track .slide{
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+@keyframes scroll {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(calc(-250px*7));
+  }
+}
+
+
+
+
+/* For carousel  prev arrow */
