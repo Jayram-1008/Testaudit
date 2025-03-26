@@ -70,6 +70,20 @@ body{
 }
 
 
+.bg-transparent {
+  background-color: transparent;
+}
 
+.bg-white {
+  background-color: white;
+}
+
+.shadow-lg {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
 
 /* For carousel  prev arrow */

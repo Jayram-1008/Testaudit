@@ -8,6 +8,10 @@ import img5 from "../assets/9604605.jpg";
 import img6 from "../assets/counterBg.jpg";
 import img7 from "../assets/qwe.jpg";
 import img8 from "../assets/work3.png";
+import { FacebookOutlined } from "@ant-design/icons";
+import { FaFacebook, FaLinkedin } from "react-icons/fa";
+import { IoMdMail } from "react-icons/io";
+
 const images = [
   { id: "content1", img: img1 },
   { id: "content2", img: img2 },
@@ -34,19 +38,13 @@ const ContentBox = ({ isActive, id, imgSrc }) => {
           </h2>
           <ul className="social-media">
             <li>
-              <a href="">&#174;</a>
+              <a href=""><FaFacebook size={20}/></a>
             </li>
             <li>
-              <a href="">&#9824;</a>
+              <a href=""><FaLinkedin size={20}/> </a>
             </li>
             <li>
-              <a href="">&#9827;</a>
-            </li>
-            <li>
-              <a href="">&#8719;</a>
-            </li>
-            <li>
-              <a href="">&#8704;</a>
+              <a href=""><IoMdMail size={20}/></a>
             </li>
           </ul>
         </div>

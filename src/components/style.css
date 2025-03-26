@@ -201,8 +201,8 @@
 .contentBox .card .textBox .social-media {
     position: relative;
     display: flex;
-    gap: 7px;
-    margin-top: 10px;
+    gap: 15px;
+    margin-top: 8px;
     color: white;
 }
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import footerImg from '../assets/footer.jpg'
-import logo from '../assets/logo/auditLogo.png'
 import { Button } from 'antd'
 import { SiFacebook } from "react-icons/si";
 import { FaSquareInstagram, FaSquareXTwitter, FaSquareYoutube } from "react-icons/fa6";
