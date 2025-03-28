@@ -63,3 +63,20 @@ export const teamMember = [
     },
     
 ]
+
+
+{/* <div className="flex gap-6 relative">
+            {menuData.map((menu) => (
+              <div key={menu.menu} className="relative group">
+                <div
+                  className={`flex items-center gap-0.5 text-lg cursor-pointer transition-colors duration-300 ${
+                    isScrolled ? 'text-black' : 'text-white'
+                  } hover:text-[#d35400]`}
+                  onClick={() => Array.isArray(menu.submenu) && menu.submenu.length > 0 && showDrawer(menu)}
+
+                >
+                  {menu.menu} {menu.submenu.length > 0 && <DownOutlined className="mt-1" />}
+                </div>
+              </div>
+            ))}
+          </div> */}

@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { servicesMenu, insightData, careersMenu, industriesMenu, about } from '../utils/menuData'; // Adjust the path as necessary
 import logo from '../assets/logo/auditra.png';
-import { CloseCircleFilled, DownOutlined } from '@ant-design/icons';
 import { GoSearch } from 'react-icons/go';
-import { TbWorld } from 'react-icons/tb';
 import { IoPerson } from 'react-icons/io5';
-
-import { Button, Drawer, Space } from 'antd';
+import { Drawer } from 'antd';
 import CollapseSubMenu from './CollapseSubMenu';
-import LanguageDrawer from '../utils/LanguageDrawer';
+import { FaChevronDown,  } from 'react-icons/fa';
+import { ImCross } from "react-icons/im";
+
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [currentSubmenu, setCurrentSubmenu] = useState(null); // Track the current submenu
+  const [currentSubmenu, setCurrentSubmenu] = useState(null);
 
-  const showDrawer = (label) => {
-    setCurrentSubmenu(label); // Set the submenu label
-    setOpen(true); // Open the drawer
+  const menus = [insightData, servicesMenu, industriesMenu, careersMenu, about];
+
+  const showDrawer = (menu) => {
+    setCurrentSubmenu(menu);
+    setOpen(true);
   };
 
   const onClose = () => {
-    setOpen(false); // Close the drawer
-    setCurrentSubmenu(null); // Reset the submenu label
+    setOpen(false);
+    setCurrentSubmenu(null);
   };
 
   useEffect(() => {
@@ -42,74 +44,25 @@ const Navbar = () => {
       }`}
     >
       <div className="navContainer flex justify-between items-center">
-        {/* Logo */}
         <div className="w-1/9 h-full bg-black">
           <img src={logo} className="w-full h-full object-cover" alt="Logo" />
         </div>
 
-        {/* Navigation Links (Manually Written) */}
         <div className="flex gap-6 relative">
-          {/* Insight */}
-          <div className="relative group">
+          {menus.map((menu, index) => (
             <div
-              className={`flex items-center gap-0.5 text-lg cursor-pointer transition-colors duration-300 ${
+              key={index}
+              className={`flex items-center gap-1 cursor-pointer ${
                 isScrolled ? 'text-black' : 'text-white'
               } hover:text-[#d35400]`}
-              onClick={() => showDrawer('Insight')}
+              onClick={() => showDrawer(menu)}
             >
-              Insight <DownOutlined className="mt-1" />
+              {/* 1st menu from map and 2nd menu from raw data's option */}
+              {menu.menu} <FaChevronDown/>
             </div>
-          </div>
-
-          {/* Services */}
-          <div className="relative group">
-            <div
-              className={`flex items-center gap-0.5 text-lg cursor-pointer transition-colors duration-300 ${
-                isScrolled ? 'text-black' : 'text-white'
-              } hover:text-[#d35400]`}
-              onClick={() => showDrawer('Services')}
-            >
-              Services <DownOutlined className="mt-1" />
-            </div>
-          </div>
-
-          {/* Industries */}
-          <div className="relative group">
-            <div
-              className={`flex items-center gap-0.5 text-lg cursor-pointer transition-colors duration-300 ${
-                isScrolled ? 'text-black' : 'text-white'
-              } hover:text-[#d35400]`}
-              onClick={() => showDrawer('Industries')}
-            >
-              Industries <DownOutlined className="mt-1" />
-            </div>
-          </div>
-
-          {/* Careers */}
-          <div className="relative group">
-            <div
-              className={`flex items-center gap-0.5 text-lg cursor-pointer transition-colors duration-300 ${
-                isScrolled ? 'text-black' : 'text-white'
-              } hover:text-[#d35400]`}
-              onMouseOver={() => showDrawer('Careers')}
-            >
-              Careers <DownOutlined className="mt-1" />
-            </div>
-          </div>
-
-          {/* About Us */}
-          <div className="relative group">
-            <div
-              className={`flex items-center gap-0.5 text-lg cursor-pointer transition-colors duration-300 ${
-                isScrolled ? 'text-black' : 'text-white'
-              } hover:text-[#d35400]`}
-            >
-              About Us
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Actions */}
         <div className="flex items-center gap-2">
           <div
             className={`flex items-center gap-1 text-lg cursor-pointer transition-colors duration-300 ${
@@ -117,9 +70,6 @@ const Navbar = () => {
             } hover:text-[#d35400]`}
           >
             <GoSearch /> Search
-          </div>
-          <div>
-            <LanguageDrawer/>
           </div>
           <div
             className={`flex items-center gap-1 text-lg cursor-pointer transition-colors duration-300 ${
@@ -131,69 +81,48 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Drawer */}
       <Drawer
-        title={currentSubmenu ? `${currentSubmenu} Submenu` : 'Submenu'}
         placement="top"
-        width={500}
         onClose={onClose}
         open={open}
-        extra={<CloseCircleFilled onClick={onClose} style={{fontSize:'30px'}}/>}
-        style={{background:'#001529', color:'white'}}
+        extra={<ImCross onClick={onClose} className='text-2xl cursor-pointer hover:text-red-700'/>}
+        style={{
+          background: '#001529',
+          color: 'white',
+          padding: '10px 20px',
+          height: '70vh', // Fixed height for the drawer
+        }}
       >
-        {currentSubmenu ? (
-          <div
-          className="bg-[#001529]"
-        >
-          <div className="flex  justify-between gap-6">
-            {/* Left Section */}
-            <div className="w-1/5">
-              <h1 className="text-xl text-white font-semibold mb-2">Industries</h1>
-              <p className="text-lg text-white leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore eos laudantium quia sunt error nemo doloribus nulla sequi.
-              </p>
-              <button
-                className="p-2 relative overflow-hidden border border-white text-black mt-4 cursor-pointer group"
-                style={{ borderRadius: '0' }}
-              >
-                {/* Background Span */}
-                <span className="absolute inset-0 bg-[#d35400] transform -translate-x-full transition-transform duration-300 group-hover:translate-x-0 z-0"></span>
-                {/* Text */}
-                <span className="text-white relative z-10 transition-colors duration-300 group-hover:text-white group-hover:underline">
-                  Find Out More &#x2192;
-                </span>
-              </button>
-            </div>
-    
-            {/* Center Section (Collapse Menu) */}
-            <div className="w-1/3">
-              <CollapseSubMenu />
-            </div>
-    
-            {/* Right Section (Optional) */}
-              <div className="w-1/3">
-                <h1 className="text-xl text-white font-semibold mb-2">Industries</h1>
-                <p className="text-lg text-white leading-relaxed">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore eos laudantium quia sunt error nemo doloribus nulla sequi.
-                </p>
-                <button
-                  className="p-2 relative overflow-hidden border border-white text-black mt-4 cursor-pointer group"
-                  style={{ borderRadius: '0' }}
-                >
-                  {/* Background Span */}
-                  <span className="absolute inset-0 bg-[#d35400] transform -translate-x-full transition-transform duration-300 group-hover:translate-x-0 z-0"></span>
-                  {/* Text */}
-                  <span className="text-white relative z-10 transition-colors duration-300 group-hover:text-white group-hover:underline">
-                    Find Out More &#x2192;
-                  </span>
-                </button>
-              </div>
-          </div>
+      <div className="flex justify-between h-full gap-10">
+        {/* Left Section */}
+        <div className="w-1/5 h-full flex flex-col">
+          <h1 className="text-3xl">{currentSubmenu?.menu}</h1>
+          <br />
+          <p className="text-[17px] text-white text-justify">
+            {currentSubmenu?.description}
+          </p>
         </div>
-        ) : (
-          <p>No submenu content available.</p>
-        )}
+
+        {/* Middle Scrollable Section */}
+        <div className="w-3/5 h-full overflow-y-auto pr-4">
+          {currentSubmenu?.submenu?.length > 0 ? (
+            <CollapseSubMenu submenu={currentSubmenu.submenu} />
+          ) : (
+            <p>No submenu content available.</p>
+          )}
+        </div>
+
+        {/* Right Section */}
+        <div className="w-1/5 h-full flex flex-col ">
+          <h1 className="text-3xl">{currentSubmenu?.menu}</h1>
+          <br />
+          <p className="text-[17px] text-white text-justify">
+            {currentSubmenu?.description}
+          </p>
+        </div>
+      </div>
       </Drawer>
+
     </div>
   );
 };

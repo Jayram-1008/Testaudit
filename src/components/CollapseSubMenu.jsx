@@ -1,48 +1,60 @@
 import React from 'react';
 import { Collapse } from 'antd';
-// import './CollapseSubMenu.css'; // Import your custom CSS
-import { DownCircleFilled, PlusCircleFilled, PlusOutlined } from '@ant-design/icons';
+import { FaChevronDown } from "react-icons/fa"; // Import a custom arrow icon
+import { FaPlusCircle } from "react-icons/fa";
 
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+const CollapseSubMenu = ({ submenu }) => {
+  const items = submenu.map((item, index) => {
+    const hasChildren = item.children && item.children.length > 0;
 
-const items = [
-  {
-    key: '1',
-    label: <span className="text-white">This is panel header 1</span>,
-    children: <p className=''>{text}</p>,
-    extra: <span className='text-white'><PlusCircleFilled /></span>
-  },
-  {
-    key: '2',
-    label: <span className="text-white">This is panel header 2</span>,
-    children: <p>{text}</p>,
-    extra: <span className='text-white'><PlusCircleFilled /></span>
-  },
-  {
-    key: '3',
-    label: <div className="text-white">This is panel header 3</div>,
-    children: <p>{text}</p>,
-    extra: <span className='text-white'><PlusCircleFilled /></span>
-  },
-];
+    return {
+      key: index.toString(),
+      label: <p className="text-white text-lg">{item.title}</p>,
+      extra: <FaPlusCircle style={{ color: 'white', fontSize: '20px' }} />,
+      children: hasChildren ? (
+        <div className="flex flex-col gap-2">
+          {item.children.map((child, childIndex) => (
+            <a
+              key={childIndex}
+              href={child.path}
+              className="text-blue-100 no-underline hover:underline"
+            >
+              {child.title} &#8594;
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div className="">
+          <p className="mb-2">{item.description} </p>
+          <a href={item.path} className="border-1 border-black px-2 p-1">
+            Know More &#8594;
+          </a>
+        </div>
+      ),
+    };
+  });
 
-const CollapseSubMenu = () => (
-  <Collapse
-    accordion
-    items={items}
-    size='large'
-    showArrow={true}
-    expandIcon={({ isActive }) => (
-      <div
-        className={`arrow ${isActive ? 'active' : ''} `}
-        style={{  }}
-      />
-    )}
-  />
-);
+  const onChange = (key) => {
+    console.log(key);
+  };
+
+  return (
+    <Collapse
+      items={items}
+      onChange={onChange}
+      accordion
+      expandIcon={({ isActive }) => (
+        <FaChevronDown
+          style={{
+            color: 'white', // Change the color of the arrow here
+            transform: isActive ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.3s ease',
+          }}
+        />
+      )}
+      style={{ background: '#001529', color: 'white' }}
+    />
+  );
+};
 
 export default CollapseSubMenu;
